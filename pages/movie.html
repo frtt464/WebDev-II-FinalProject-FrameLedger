@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrameLedger — Movie Details</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="page-fade">
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <span class="nav__logo-text">Frame<span>Ledger</span></span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../index.html" class="nav__link">Search</a></li>
+        <li><a href="../index.html?mode=discover" class="nav__link">Discover</a></li>
+        <li><a href="watchlist.html" class="nav__link">Watchlist</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- BACKDROP (set via JS) -->
+  <div class="detail-hero__backdrop" id="backdrop"></div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Loading state -->
+    <div id="loadingState" class="detail-hero">
+      <div class="state-message">
+        <div class="spinner"></div>
+        <p>Loading film details...</p>
+      </div>
+    </div>
+
+    <!-- Detail content (hidden until loaded) -->
+    <div id="detailContent" style="display:none;">
+
+      <!-- HERO INFO -->
+      <div class="detail-hero" id="detailHero">
+        <!-- Back button href is set dynamically by movie.js to preserve search query -->
+        <a href="../index.html" class="btn btn--ghost btn--sm back-btn" id="backBtn">
+          ← Back to Search
+        </a>
+
+        <div class="detail-layout">
+          <!-- Poster -->
+          <div>
+            <img class="detail-poster" id="detailPoster" src="" alt="" />
+          </div>
+
+          <!-- Info -->
+          <div class="detail-info">
+            <p class="detail-info__eyebrow" id="detailEyebrow"></p>
+            <h1 class="detail-info__title" id="detailTitle"></h1>
+            <p class="detail-info__tagline" id="detailTagline"></p>
+
+            <div class="detail-meta-row" id="detailMetaRow"></div>
+
+            <div class="genres" id="detailGenres"></div>
+
+            <p class="detail-overview" id="detailOverview"></p>
+
+            <!-- Watchlist form card -->
+            <div class="watchlist-form-card" id="watchlistFormCard">
+              <h3>＋ Add to Watchlist</h3>
+              <form id="addToWatchlistForm" novalidate>
+                <div class="form-group">
+                  <label for="statusSelect">Status</label>
+                  <select class="form-control" id="statusSelect">
+                    <option value="Want to Watch">Want to Watch</option>
+                    <option value="Watching">Watching</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="noteInput">
+                    <span>Note</span>
+                    <span class="muted">(optional)</span>
+                    <span id="noteCharCount" class="char-count">0 / 200</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="noteInput"
+                    placeholder="e.g. Loved the cinematography..."
+                    maxlength="200"
+                  />
+                  <p class="field-error" id="noteError"></p>
+                </div>
+                <div class="form-btn-row">
+                  <button type="submit" class="btn btn--primary" id="addBtn">Add to Watchlist</button>
+                  <button type="button" class="btn btn--outline" id="viewWatchlistBtn" style="display:none;">
+                    View in Watchlist →
+                  </button>
+                </div>
+                <p class="field-error form-error-msg" id="formError"></p>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- TRAILER -->
+      <section class="section" id="trailerSection" style="display:none;">
+        <div class="section-header">
+          <h2>Official Trailer</h2>
+        </div>
+        <div id="trailerContainer"></div>
+      </section>
+
+      <hr class="divider" id="trailerDivider" style="display:none;" />
+
+      <!-- SIMILAR MOVIES -->
+      <hr class="divider" id="similarDivider" style="display:none;" />
+      <section class="section" id="similarSection" style="display:none;">
+        <div class="section-header">
+          <h2>Similar Films</h2>
+        </div>
+        <div class="similar-grid" id="similarGrid"></div>
+      </section>
+
+      <!-- REVIEWS -->
+      <hr class="divider" id="reviewsDivider" style="display:none;" />
+      <section class="section" id="reviewsSection" style="display:none;">
+        <div class="section-header">
+          <h2>Audience Reviews</h2>
+        </div>
+        <div class="reviews-grid" id="reviewsGrid"></div>
+      </section>
+
+    </div>
+
+    <!-- Error state -->
+    <div id="errorState" style="display:none;" class="detail-hero">
+      <div class="state-message">
+        <div class="state-message__icon">⚠️</div>
+        <p>Could not load film details. <a href="../index.html" class="error-link">Return to search</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__logo">Frame<span>Ledger</span><span class="footer__dot">.</span></span>
+        <span class="footer__tagline">Your personal cinema archive.</span>
+      </div>
+      <nav class="footer__links">
+        <a href="../index.html" class="footer__link">Search</a>
+        <a href="../index.html?mode=discover" class="footer__link">Discover</a>
+        <a href="watchlist.html" class="footer__link">Watchlist</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 FrameLedger — INFO 251 Final Project — Spring 2026</span>
+      <span class="footer__credit">Powered by <span>TMDB API</span> &amp; MockAPI</span>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../js/config.js"></script>
+  <script src="../js/tmdb.js"></script>
+  <script src="../js/watchlist.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/movie.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrameLedger — Discover &amp; Track Cinema</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="page-fade">
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <span class="nav__logo-text">Frame<span>Ledger</span></span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html" class="nav__link">Search</a></li>
+        <li><a href="index.html" class="nav__link" id="navDiscover">Discover</a></li>
+        <li><a href="pages/watchlist.html" class="nav__link">Watchlist</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero__eyebrow">Your Personal Cinema Archive</p>
+    <h1 class="hero__title">Frame<span>Ledger</span><span class="hero__dot">.</span></h1>
+    <p class="hero__subtitle">Search, discover, and track every film you've seen — or plan to.</p>
+  </header>
+
+  <!-- SEARCH -->
+  <section class="search-section">
+    <!-- Mode toggle -->
+    <div class="mode-toggle" id="modeToggle">
+      <button class="mode-btn active" id="modeSearch" data-mode="search">Search</button>
+      <button class="mode-btn" id="modeDiscover" data-mode="discover">Discover</button>
+    </div>
+
+    <!-- Search form -->
+    <div id="searchPane">
+      <div class="search-form-wrapper">
+        <form class="search-form" id="searchForm" novalidate>
+          <div class="search-input-wrap">
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Search for a film title..."
+              autocomplete="off"
+              maxlength="200"
+            />
+            <button type="button" class="search-clear-btn" id="searchClearBtn" aria-label="Clear search" style="display:none;">✕</button>
+          </div>
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+      </div>
+      <p class="search-error" id="searchError"></p>
+
+      <!-- Search history chips -->
+      <div class="search-history" id="searchHistory" style="display:none;">
+        <span class="search-history__label">Recent searches</span>
+        <div class="search-history__chips" id="searchHistoryChips"></div>
+      </div>
+    </div>
+
+    <!-- Discover pane -->
+    <div id="discoverPane" style="display:none;">
+      <div class="discover-controls">
+        <div class="discover-field">
+          <label class="label" for="genreSelect">Genre</label>
+          <select class="form-control" id="genreSelect">
+            <option value="">Any Genre</option>
+          </select>
+        </div>
+        <div class="discover-field">
+          <label class="label" for="ratingSelect">Min. Rating</label>
+          <select class="form-control" id="ratingSelect">
+            <option value="">Any Rating</option>
+            <option value="9">9+ ★</option>
+            <option value="8">8+ ★</option>
+            <option value="7">7+ ★</option>
+            <option value="6">6+ ★</option>
+            <option value="5">5+ ★</option>
+          </select>
+        </div>
+        <div class="discover-field">
+          <label class="label" for="sortSelect">Sort By</label>
+          <select class="form-control" id="sortSelect">
+            <option value="popularity.desc">Most Popular</option>
+            <option value="vote_average.desc">Highest Rated</option>
+            <option value="release_date.desc">Newest First</option>
+            <option value="release_date.asc">Oldest First</option>
+          </select>
+        </div>
+        <button class="search-btn discover-btn" id="discoverBtn">Discover</button>
+        <button class="btn btn--outline surprise-btn" id="surpriseBtn">🎲 Surprise Me</button>
+      </div>
+      <p class="search-error" id="discoverError"></p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- RESULTS -->
+  <section class="results-section" id="resultsSection">
+    <div class="state-message" id="initialState">
+      <div class="state-message__icon">🎬</div>
+      <p>Search for a film, or use Discover to explore</p>
+    </div>
+
+    <div class="section-header" id="resultsHeader" style="display:none;">
+      <h2 id="resultsLabel">Results</h2>
+    </div>
+
+    <div class="movie-grid" id="movieGrid"></div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="pagination" style="display:none;">
+      <button class="btn btn--outline btn--sm" id="prevBtn" disabled>← Prev</button>
+      <span class="mono page-info" id="pageInfo">Page 1</span>
+      <button class="btn btn--outline btn--sm" id="nextBtn">Next →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__logo">Frame<span>Ledger</span><span class="footer__dot">.</span></span>
+        <span class="footer__tagline">Your personal cinema archive.</span>
+      </div>
+      <nav class="footer__links">
+        <a href="index.html" class="footer__link">Search</a>
+        <a href="index.html" class="footer__link" id="footerDiscover">Discover</a>
+        <a href="pages/watchlist.html" class="footer__link">Watchlist</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 FrameLedger — INFO 251 Final Project — Spring 2026</span>
+      <span class="footer__credit">Powered by <span>TMDB API</span> &amp; MockAPI</span>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/config.js"></script>
+  <script src="js/tmdb.js"></script>
+  <script src="js/watchlist.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/discover.js"></script>
+</body>
+</html>

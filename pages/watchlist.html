@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrameLedger — My Watchlist</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="page-fade">
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <span class="nav__logo-text">Frame<span>Ledger</span></span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../index.html" class="nav__link">Search</a></li>
+        <li><a href="../index.html?mode=discover" class="nav__link">Discover</a></li>
+        <li><a href="watchlist.html" class="nav__link">Watchlist</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="hero hero--compact">
+    <p class="hero__eyebrow">Your Collection</p>
+    <h1 class="hero__title hero__title--watchlist">My <span>Watchlist</span></h1>
+  </header>
+
+  <hr class="divider" />
+
+  <!-- STATS DASHBOARD -->
+  <section class="stats-section container" id="statsSection" style="display:none;">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-card__value" id="statTotal">0</span>
+        <span class="stat-card__label">Total Films</span>
+      </div>
+      <div class="stat-card stat-card--want">
+        <span class="stat-card__value" id="statWant">0</span>
+        <span class="stat-card__label">Want to Watch</span>
+      </div>
+      <div class="stat-card stat-card--watching">
+        <span class="stat-card__value" id="statWatching">0</span>
+        <span class="stat-card__label">Watching</span>
+      </div>
+      <div class="stat-card stat-card--completed">
+        <span class="stat-card__value" id="statCompleted">0</span>
+        <span class="stat-card__label">Completed</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar-wrap" id="progressBarWrap" style="display:none;">
+      <div class="progress-bar">
+        <div class="progress-bar__segment progress-bar__segment--want"      id="progressWant"></div>
+        <div class="progress-bar__segment progress-bar__segment--watching"  id="progressWatching"></div>
+        <div class="progress-bar__segment progress-bar__segment--completed" id="progressCompleted"></div>
+      </div>
+      <div class="progress-bar__legend">
+        <span class="progress-bar__legend-item progress-bar__legend-item--want">Want to Watch</span>
+        <span class="progress-bar__legend-item progress-bar__legend-item--watching">Watching</span>
+        <span class="progress-bar__legend-item progress-bar__legend-item--completed">Completed</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" id="statsDivider" style="display:none;" />
+
+  <!-- WATCHLIST SECTION -->
+  <section class="results-section" id="watchlistSection">
+
+    <!-- Controls -->
+    <div class="watchlist-controls" id="watchlistControls" style="display:none;">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="Want to Watch">Want to Watch</button>
+        <button class="filter-tab" data-filter="Watching">Watching</button>
+        <button class="filter-tab" data-filter="Completed">Completed</button>
+      </div>
+      <div class="wl-sort-wrap">
+        <select class="form-control" id="wlSortSelect">
+          <option value="newest">Recently Added</option>
+          <option value="oldest">Oldest First</option>
+          <option value="title">Title A–Z</option>
+          <option value="rating">Highest Rated</option>
+        </select>
+      </div>
+      <span class="watchlist-count" id="watchlistCount"></span>
+    </div>
+
+    <!-- Loading skeleton placeholder -->
+    <div id="wlLoading" class="state-message" style="display:none;"></div>
+
+    <!-- Empty state -->
+    <div id="wlEmpty" class="state-message wl-empty-state" style="display:none;">
+      <div class="state-message__icon">📽️</div>
+      <p class="wl-empty__text">Your watchlist is empty.</p>
+      <div class="wl-empty__actions">
+        <a href="../index.html" class="btn btn--primary">🔍 <span>Search</span></a>
+        <a href="../index.html?mode=discover" class="btn btn--outline">🎬 <span>Discover</span></a>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="wlError" class="state-message" style="display:none;">
+      <div class="state-message__icon">⚠️</div>
+      <p>Could not load your watchlist. Please try again later.</p>
+    </div>
+
+    <!-- List -->
+    <div class="watchlist-list" id="watchlistList" style="display:none;"></div>
+
+  </section>
+
+  <!-- CONFIRM DELETE MODAL -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title">Remove Film?</h2>
+        <button class="modal__close" id="deleteModalClose">&times;</button>
+      </div>
+      <p class="modal__body-text" id="deleteModalText">
+        Are you sure you want to remove this film from your watchlist?
+      </p>
+      <div class="modal__actions">
+        <button class="btn btn--outline btn--sm" id="deleteModalCancel">Cancel</button>
+        <button class="btn btn--danger btn--sm" id="deleteModalConfirm">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__logo">Frame<span>Ledger</span><span class="footer__dot">.</span></span>
+        <span class="footer__tagline">Your personal cinema archive.</span>
+      </div>
+      <nav class="footer__links">
+        <a href="../index.html" class="footer__link">Search</a>
+        <a href="../index.html?mode=discover" class="footer__link">Discover</a>
+        <a href="watchlist.html" class="footer__link">Watchlist</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 FrameLedger — INFO 251 Final Project — Spring 2026</span>
+      <span class="footer__credit">Powered by <span>TMDB API</span> &amp; MockAPI</span>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../js/config.js"></script>
+  <script src="../js/tmdb.js"></script>
+  <script src="../js/watchlist.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/watchlist-page.js"></script>
+</body>
+</html>
