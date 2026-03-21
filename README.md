@@ -190,20 +190,9 @@ config.js → tmdb.js → watchlist.js → ui.js → [page script]
 
 ---
 
-## Team Contributions
-
-| Feature | Developer |
-|---|---|
-| *(Fill in before submission)* | Vin |
-| *(Fill in before submission)* | Tou |
-
----
-
 ## References and Acknowledgements
 
 - [TMDB API](https://developer.themoviedb.org) — movie data, images, trailers, reviews
 - [MockAPI](https://mockapi.io) — REST backend for watchlist persistence
 - [MDN Web Docs](https://developer.mozilla.org) — JavaScript and Web API reference
-- [Claude (Anthropic)](https://claude.ai) — AI assistant used throughout development for debugging, code review, architectural decisions, and README writing. All code was written and reviewed by the team; Claude was used as a development tool, not a replacement for understanding.
-
-This project uses the TMDB API but is not endorsed or certified by TMDB.
+- [Claude (Anthropic)](https://claude.ai) — AI assistant used throughout development for debugging, code review, architectural decisions, and README writing. All code was written and reviewed by the team. Claude was used as a development tool, not a replacement for understanding.
