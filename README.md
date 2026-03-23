@@ -2,7 +2,7 @@
 
 **Course:** INFO 251 — Web Development II | Spring 2026
 **Team:** LOEUNG Soxavin, LACH Sovitou
-**Group size note:** This project was completed as a group of 2. Per the guidelines, individual or smaller group submissions are allowed upon request based on reason.
+**Group size note:** This project was completed as a group of 2.
 
 ---
 
