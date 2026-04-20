@@ -46,10 +46,22 @@
   const deleteCancel  = document.getElementById('deleteModalCancel');
   const deleteClose   = document.getElementById('deleteModalClose');
 
+  // ---- Preference Persistence ----------------
+  // Saves and restores the active filter/sort across page reloads
+  // using localStorage, so the user returns to the same view.
+  const PREFS_KEY = 'wl_prefs';
+  const loadPrefs = () => {
+    try { return JSON.parse(localStorage.getItem(PREFS_KEY)) || {}; } catch { return {}; }
+  };
+  const savePrefs = () => {
+    localStorage.setItem(PREFS_KEY, JSON.stringify({ filter: activeFilter, sort: activeSort }));
+  };
+
   // ---- State ---------------------------------
   let allEntries      = [];
-  let activeFilter    = 'all';
-  let activeSort      = 'newest';
+  const savedPrefs    = loadPrefs();
+  let activeFilter    = savedPrefs.filter || 'all';
+  let activeSort      = savedPrefs.sort   || 'newest';
   let pendingDeleteId = null;
   let isDeleting      = false;
 
@@ -198,10 +210,10 @@
         <div class="watchlist-item__meta">
           ${statusBadge(entry.status)}
           ${entry.releaseYear
-            ? `<span class="mono" style="color:var(--text-muted);">${escapeHtml(entry.releaseYear)}</span>`
+            ? `<span class="mono muted">${escapeHtml(entry.releaseYear)}</span>`
             : ''}
           ${entry.rating
-            ? `<span class="mono" style="color:var(--text-muted);">TMDB ★ ${escapeHtml(String(entry.rating))}</span>`
+            ? `<span class="mono muted">TMDB ★ ${escapeHtml(String(entry.rating))}</span>`
             : ''}
         </div>
         ${entry.userRating
@@ -236,8 +248,8 @@
             ${entry.userRating ? `<button type="button" class="star-clear-btn" title="Clear rating">✕</button>` : ''}
           </div>
         </div>
-        <div class="form-group" style="flex:2;">
-          <label>Note <span id="editCharCount-${entry.id}" style="font-size:0.6rem; color:var(--text-muted); font-family:'Share Tech Mono',monospace; letter-spacing:0.05em; margin-left:0.4rem;">${(entry.note || '').length} / 200</span></label>
+        <div class="form-group form-group--wide">
+          <label>Note <span id="editCharCount-${entry.id}" class="char-count">${(entry.note || '').length} / 200</span></label>
           <input
             type="text"
             class="form-control edit-note"
@@ -248,7 +260,7 @@
           />
           <p class="field-error" id="editNoteError-${entry.id}"></p>
         </div>
-        <div style="display:flex; gap:0.5rem; padding-bottom:0.15rem;">
+        <div class="form-btn-row">
           <button class="btn btn--primary btn--sm save-btn"        data-id="${entry.id}">Save</button>
           <button class="btn btn--outline btn--sm cancel-edit-btn" data-id="${entry.id}">Cancel</button>
         </div>
@@ -419,19 +431,28 @@
   };
 
   // ---- Filter Tabs ---------------------------
+  // Restore saved active tab on page load
   filterTabs.forEach((tab) => {
+    if (tab.dataset.filter === activeFilter) {
+      filterTabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+    }
     tab.addEventListener('click', () => {
       filterTabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
       activeFilter = tab.dataset.filter;
+      savePrefs();
       renderList();
     });
   });
 
   // ---- Sort Select ---------------------------
   if (sortSelect) {
+    // Restore saved sort value on page load
+    sortSelect.value = activeSort;
     sortSelect.addEventListener('change', () => {
       activeSort = sortSelect.value;
+      savePrefs();
       renderList();
     });
   }

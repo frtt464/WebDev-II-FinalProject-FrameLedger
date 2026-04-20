@@ -50,7 +50,7 @@
               autocomplete="off"
               maxlength="200"
             />
-            <button type="button" class="search-clear-btn" id="searchClearBtn" aria-label="Clear search" style="display:none;">✕</button>
+            <button type="button" class="search-clear-btn hidden" id="searchClearBtn" aria-label="Clear search">✕</button>
           </div>
           <button type="submit" class="search-btn">Search</button>
         </form>
@@ -58,14 +58,14 @@
       <p class="search-error" id="searchError"></p>
 
       <!-- Search history chips -->
-      <div class="search-history" id="searchHistory" style="display:none;">
+      <div class="search-history hidden" id="searchHistory">
         <span class="search-history__label">Recent searches</span>
         <div class="search-history__chips" id="searchHistoryChips"></div>
       </div>
     </div>
 
     <!-- Discover pane -->
-    <div id="discoverPane" style="display:none;">
+    <div id="discoverPane" class="hidden">
       <div class="discover-controls">
         <div class="discover-field">
           <label class="label" for="genreSelect">Genre</label>
@@ -109,14 +109,14 @@
       <p>Search for a film, or use Discover to explore</p>
     </div>
 
-    <div class="section-header" id="resultsHeader" style="display:none;">
+    <div class="section-header hidden" id="resultsHeader">
       <h2 id="resultsLabel">Results</h2>
     </div>
 
     <div class="movie-grid" id="movieGrid"></div>
 
     <!-- Pagination -->
-    <div id="pagination" class="pagination" style="display:none;">
+    <div id="pagination" class="pagination hidden">
       <button class="btn btn--outline btn--sm" id="prevBtn" disabled>← Prev</button>
       <span class="mono page-info" id="pageInfo">Page 1</span>
       <button class="btn btn--outline btn--sm" id="nextBtn">Next →</button>

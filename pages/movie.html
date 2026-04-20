@@ -36,7 +36,7 @@
     </div>
 
     <!-- Detail content (hidden until loaded) -->
-    <div id="detailContent" style="display:none;">
+    <div id="detailContent" class="hidden">
 
       <!-- HERO INFO -->
       <div class="detail-hero" id="detailHero">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-btn-row">
                   <button type="submit" class="btn btn--primary" id="addBtn">Add to Watchlist</button>
-                  <button type="button" class="btn btn--outline" id="viewWatchlistBtn" style="display:none;">
+                  <button type="button" class="btn btn--outline hidden" id="viewWatchlistBtn">
                     View in Watchlist →
                   </button>
                 </div>
@@ -107,18 +107,18 @@
       <hr class="divider" />
 
       <!-- TRAILER -->
-      <section class="section" id="trailerSection" style="display:none;">
+      <section class="section hidden" id="trailerSection">
         <div class="section-header">
           <h2>Official Trailer</h2>
         </div>
         <div id="trailerContainer"></div>
       </section>
 
-      <hr class="divider" id="trailerDivider" style="display:none;" />
+      <hr class="divider hidden" id="trailerDivider" />
 
       <!-- SIMILAR MOVIES -->
-      <hr class="divider" id="similarDivider" style="display:none;" />
-      <section class="section" id="similarSection" style="display:none;">
+      <hr class="divider hidden" id="similarDivider" />
+      <section class="section hidden" id="similarSection">
         <div class="section-header">
           <h2>Similar Films</h2>
         </div>
@@ -126,8 +126,8 @@
       </section>
 
       <!-- REVIEWS -->
-      <hr class="divider" id="reviewsDivider" style="display:none;" />
-      <section class="section" id="reviewsSection" style="display:none;">
+      <hr class="divider hidden" id="reviewsDivider" />
+      <section class="section hidden" id="reviewsSection">
         <div class="section-header">
           <h2>Audience Reviews</h2>
         </div>
@@ -137,10 +137,11 @@
     </div>
 
     <!-- Error state -->
-    <div id="errorState" style="display:none;" class="detail-hero">
+    <div id="errorState" class="detail-hero hidden">
       <div class="state-message">
         <div class="state-message__icon">⚠️</div>
-        <p>Could not load film details. <a href="../index.html" class="error-link">Return to search</a></p>
+        <p id="errorMsg">Could not load film details. <a href="../index.html" class="error-link">Return to search</a></p>
+        <button onclick="location.reload()" class="btn btn--outline btn--sm" style="margin-top:1rem;">Try Again</button>
       </div>
     </div>
   </main>

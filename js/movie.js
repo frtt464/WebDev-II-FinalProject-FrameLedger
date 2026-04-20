@@ -406,9 +406,22 @@ metaRow.innerHTML = `
       detailContent.style.display = 'block';
 
     } catch (err) {
-      // Something went wrong — show the error fallback
+      // Show a contextual error message based on what went wrong
       loadingState.style.display = 'none';
       errorState.style.display   = 'block';
+
+      const errMsg = document.getElementById('errorMsg');
+      if (errMsg) {
+        const returnLink = `<a href="../index.html" class="error-link">Return to search</a>`;
+        if (err.message.includes('404') || err.message.toLowerCase().includes('not found')) {
+          errMsg.innerHTML = `Movie not found — it may have been removed from TMDB. ${returnLink}`;
+        } else if (!navigator.onLine || err.message.toLowerCase().includes('failed to fetch')) {
+          errMsg.innerHTML = `Connection issue — check your internet and try again. ${returnLink}`;
+        } else {
+          errMsg.innerHTML = `Could not load film details. ${returnLink}`;
+        }
+      }
+
       Toast.error('Failed to load film details: ' + err.message);
     }
   };

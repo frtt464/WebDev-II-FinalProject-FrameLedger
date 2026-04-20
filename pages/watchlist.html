@@ -31,7 +31,7 @@
   <hr class="divider" />
 
   <!-- STATS DASHBOARD -->
-  <section class="stats-section container" id="statsSection" style="display:none;">
+  <section class="stats-section container hidden" id="statsSection">
     <div class="stats-grid">
       <div class="stat-card">
         <span class="stat-card__value" id="statTotal">0</span>
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Progress bar -->
-    <div class="progress-bar-wrap" id="progressBarWrap" style="display:none;">
+    <div class="progress-bar-wrap hidden" id="progressBarWrap">
       <div class="progress-bar">
         <div class="progress-bar__segment progress-bar__segment--want"      id="progressWant"></div>
         <div class="progress-bar__segment progress-bar__segment--watching"  id="progressWatching"></div>
@@ -66,13 +66,13 @@
     </div>
   </section>
 
-  <hr class="divider" id="statsDivider" style="display:none;" />
+  <hr class="divider hidden" id="statsDivider" />
 
   <!-- WATCHLIST SECTION -->
   <section class="results-section" id="watchlistSection">
 
     <!-- Controls -->
-    <div class="watchlist-controls" id="watchlistControls" style="display:none;">
+    <div class="watchlist-controls hidden" id="watchlistControls">
       <div class="filter-tabs">
         <button class="filter-tab active" data-filter="all">All</button>
         <button class="filter-tab" data-filter="Want to Watch">Want to Watch</button>
@@ -91,10 +91,10 @@
     </div>
 
     <!-- Loading skeleton placeholder -->
-    <div id="wlLoading" class="state-message" style="display:none;"></div>
+    <div id="wlLoading" class="state-message hidden"></div>
 
     <!-- Empty state -->
-    <div id="wlEmpty" class="state-message wl-empty-state" style="display:none;">
+    <div id="wlEmpty" class="state-message wl-empty-state hidden">
       <div class="state-message__icon">📽️</div>
       <p class="wl-empty__text">Your watchlist is empty.</p>
       <div class="wl-empty__actions">
@@ -104,13 +104,14 @@
     </div>
 
     <!-- Error -->
-    <div id="wlError" class="state-message" style="display:none;">
+    <div id="wlError" class="state-message hidden">
       <div class="state-message__icon">⚠️</div>
       <p>Could not load your watchlist. Please try again later.</p>
+      <button onclick="location.reload()" class="btn btn--outline btn--sm" style="margin-top:1rem;">Try Again</button>
     </div>
 
     <!-- List -->
-    <div class="watchlist-list" id="watchlistList" style="display:none;"></div>
+    <div class="watchlist-list hidden" id="watchlistList"></div>
 
   </section>
 

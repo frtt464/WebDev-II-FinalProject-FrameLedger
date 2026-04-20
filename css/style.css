@@ -1863,3 +1863,12 @@ h1, h2, h3, h4 {
   .watchlist-controls { flex-direction: column; align-items: flex-start; }
   .filter-tabs { width: 100%; }
 }
+
+/* =============================================
+   UTILITY CLASSES
+   ============================================= */
+.hidden { display: none; }
+
+/* Makes a flex child grow to fill 2× more space than siblings.
+   Used for the note field in the watchlist inline-edit form. */
+.form-group--wide { flex: 2; }
