@@ -162,7 +162,7 @@ Get a free TMDB key at https://www.themoviedb.org/settings/api
 
 ### 2. Serve it locally
 
-Don't open the HTML files directly in the browser — Safari and some others block `fetch()` on local file paths. Use a local server instead:
+Don't open the HTML files directly in the browser; Safari and some others block `fetch()` on local file paths. Use a local server instead:
 
 ```bash
 python3 -m http.server 8080
@@ -229,13 +229,13 @@ If we had more time:
 
 ## References
 
-- MDN Web Docs — DOM APIs, `fetch`, `localStorage`, `Promise`
-- TMDB API documentation — https://developer.themoviedb.org
-- MockAPI documentation — https://mockapi.io/docs
-- YouTube IFrame Player API — for the privacy-enhanced trailer embed (`youtube-nocookie.com`)
+- MDN Web Docs - DOM APIs, `fetch`, `localStorage`, `Promise`
+- TMDB API documentation - https://developer.themoviedb.org
+- MockAPI documentation - https://mockapi.io/docs
+- YouTube IFrame Player API - for the privacy-enhanced trailer embed (`youtube-nocookie.com`)
 
 ---
 
 ## A note on integrity
 
-Everything here was written by us at our own discretion. We did use Claude a few times when we were genuinely stuck and couldn't figure out what was going wrong, mainly to help trace bugs and errors, not to mainly write code for us. We still made use of AI to help us with coding for some parts where we were unable to proceed. For documentation we mostly used MDN, the TMDB docs, and MockAPI's docs. This project makes use of the TMDB API.
+Everything here was written by us at our own discretion. We did use Claude a few times when we were genuinely stuck and couldn't figure out what was going wrong, mainly to help trace bugs and errors, not to mainly write code for us. We still made use of AI to help us with coding for parts where we were unable to proceed. For documentation we mostly used MDN, the TMDB docs, and MockAPI's docs. This project makes use of the TMDB API.
