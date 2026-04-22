@@ -65,6 +65,14 @@
   let pendingDeleteId = null;
   let isDeleting      = false;
 
+  const normalizeStatus = (status) => {
+    const s = String(status || '').trim().toLowerCase();
+    if (s === 'completed') return 'Completed';
+    if (s === 'watching') return 'Watching';
+    if (s === 'want to watch' || s === 'want-to-watch' || s === 'want_to_watch') return 'Want to Watch';
+    return 'Want to Watch';
+  };
+
   // ---- Sort Entries --------------------------
   const sortEntries = (entries) => {
     const sorted = [...entries];
@@ -98,9 +106,9 @@
     }
 
     const total     = entries.length;
-    const want      = entries.filter((e) => e.status === 'Want to Watch').length;
-    const watching  = entries.filter((e) => e.status === 'Watching').length;
-    const completed = entries.filter((e) => e.status === 'Completed').length;
+    const want      = entries.filter((e) => normalizeStatus(e.status) === 'Want to Watch').length;
+    const watching  = entries.filter((e) => normalizeStatus(e.status) === 'Watching').length;
+    const completed = entries.filter((e) => normalizeStatus(e.status) === 'Completed').length;
 
     document.getElementById('statTotal').textContent     = total;
     document.getElementById('statWant').textContent      = want;
@@ -189,6 +197,7 @@
 
   // ---- Build Watchlist Item ------------------
   const buildItem = (entry) => {
+    const currentStatus = normalizeStatus(entry.status);
     const posterSrc = entry.posterPath
       ? TMDB.posterUrl(entry.posterPath, 'w92')
       : null;
@@ -208,7 +217,7 @@
           ${escapeHtml(entry.title)}
         </a>
         <div class="watchlist-item__meta">
-          ${statusBadge(entry.status)}
+          ${statusBadge(currentStatus)}
           ${entry.releaseYear
             ? `<span class="mono muted">${escapeHtml(entry.releaseYear)}</span>`
             : ''}
@@ -233,9 +242,9 @@
         <div class="form-group">
           <label>Status</label>
           <select class="form-control edit-status" data-id="${entry.id}">
-            <option value="Want to Watch" ${entry.status === 'Want to Watch' ? 'selected' : ''}>Want to Watch</option>
-            <option value="Watching"      ${entry.status === 'Watching'      ? 'selected' : ''}>Watching</option>
-            <option value="Completed"     ${entry.status === 'Completed'     ? 'selected' : ''}>Completed</option>
+            <option value="Want to Watch" ${currentStatus === 'Want to Watch' ? 'selected' : ''}>Want to Watch</option>
+            <option value="Watching"      ${currentStatus === 'Watching'      ? 'selected' : ''}>Watching</option>
+            <option value="Completed"     ${currentStatus === 'Completed'     ? 'selected' : ''}>Completed</option>
           </select>
         </div>
         <div class="form-group">
@@ -372,15 +381,23 @@
         const starPickerEl = item.querySelector(`#starPicker-${entry.id}`);
         const userRating   = starPickerEl ? parseInt(starPickerEl.dataset.value) || 0 : 0;
 
+        const submittedStatus = normalizeStatus(statusEl.value);
         const updated = await WatchlistAPI.update(entry.id, {
-          status: statusEl.value,
+          status: submittedStatus,
           note,
           userRating: userRating || null,
         });
 
         const idx = allEntries.findIndex((e) => e.id === entry.id);
         if (idx !== -1) {
-          allEntries[idx] = { ...allEntries[idx], ...updated };
+          allEntries[idx] = {
+            ...allEntries[idx],
+            status: submittedStatus,
+            note,
+            userRating: userRating || null,
+            ...(updated || {}),
+            status: normalizeStatus((updated || {}).status || submittedStatus),
+          };
         }
 
         item.querySelector(`#editForm-${entry.id}`).classList.remove('open');
@@ -405,13 +422,18 @@
 
   // ---- Render List ---------------------------
   const renderList = () => {
+    const normalizedEntries = allEntries.map((e) => ({
+      ...e,
+      status: normalizeStatus(e.status),
+    }));
+
     let filtered = activeFilter === 'all'
-      ? allEntries
-      : allEntries.filter((e) => e.status === activeFilter);
+      ? normalizedEntries
+      : normalizedEntries.filter((e) => e.status === activeFilter);
 
     filtered = sortEntries(filtered);
     listEl.innerHTML = '';
-    renderStats(allEntries);
+    renderStats(normalizedEntries);
 
     if (!filtered.length) {
       listEl.style.display  = 'none';
@@ -463,7 +485,10 @@
     loadingEl.style.display = 'none';
 
     try {
-      allEntries = await WatchlistAPI.getAll();
+      allEntries = (await WatchlistAPI.getAll()).map((entry) => ({
+        ...entry,
+        status: normalizeStatus(entry.status),
+      }));
       controlsEl.style.display = 'flex';
       renderStats(allEntries);
 

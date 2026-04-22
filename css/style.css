@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Share+Tech+Mono&display=swap');
 
 /* =============================================
    CSS VARIABLES — FILM NOIR PALETTE
@@ -37,7 +37,7 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--black);
   color: var(--text-primary);
-  font-family: 'Crimson Text', Georgia, serif;
+  font-family: 'Manrope', 'Segoe UI', Tahoma, sans-serif;
   font-size: 18px;
   line-height: 1.6;
   min-height: 100vh;
@@ -290,7 +290,7 @@ h1, h2, h3, h4 {
   color: var(--text-primary);
   padding: 1rem 1.5rem;
   font-size: 1rem;
-  font-family: 'Crimson Text', serif;
+  font-family: 'Manrope', 'Segoe UI', Tahoma, sans-serif;
   border-radius: var(--radius) 0 0 var(--radius);
   transition: border-color var(--transition), box-shadow var(--transition);
   outline: none;
@@ -663,7 +663,7 @@ h1, h2, h3, h4 {
   border: 1px solid var(--border);
   color: var(--text-primary);
   padding: 0.7rem 1rem;
-  font-family: 'Crimson Text', serif;
+  font-family: 'Manrope', 'Segoe UI', Tahoma, sans-serif;
   font-size: 1rem;
   border-radius: var(--radius);
   outline: none;
@@ -1686,7 +1686,7 @@ h1, h2, h3, h4 {
 }
 
 .footer__tagline {
-  font-family: 'Crimson Text', serif;
+  font-family: 'Manrope', 'Segoe UI', Tahoma, sans-serif;
   font-style: italic;
   color: var(--text-muted);
   font-size: 0.95rem;

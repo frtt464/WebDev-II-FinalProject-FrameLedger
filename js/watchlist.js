@@ -91,7 +91,7 @@ const WatchlistAPI = (() => {
   };
 
   // --------------------------------------------------
-  //  update() — PUT /watchlist/:id
+  //  update() — PATCH /watchlist/:id
   //  Updates an existing entry's fields.
   //  Called when the user saves changes in the
   //  inline edit form on the watchlist page.
@@ -103,7 +103,7 @@ const WatchlistAPI = (() => {
   // --------------------------------------------------
   const update = async (id, changes) => {
     const res = await fetch(`${baseUrl()}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(changes),
     });
